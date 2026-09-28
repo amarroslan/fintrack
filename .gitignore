@@ -1,5 +1,7 @@
 .idea/
 out/
+build-out/
+test-out/
 *.class
 *.accdb
 *.ldb
