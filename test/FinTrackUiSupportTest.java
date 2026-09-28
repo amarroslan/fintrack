@@ -7,7 +7,8 @@ public class FinTrackUiSupportTest {
         testFormatsCurrency();
         testDerivesBudgetStatus();
         testPreservesTransactionData();
-        System.out.println("FinTrackUiSupportTest: 5 tests passed");
+        testKeepsTransactionRowsDistinct();
+        System.out.println("FinTrackUiSupportTest: 6 tests passed");
     }
 
     private static void testParsesPositiveAmount() {
@@ -39,6 +40,20 @@ public class FinTrackUiSupportTest {
         assertEquals("Food", transaction.category(), "transaction category");
         assertEquals(Double.valueOf(12.5), transaction.amount(), "transaction amount");
         assertEquals(timestamp, transaction.transactionDate(), "transaction date");
+    }
+
+    private static void testKeepsTransactionRowsDistinct() {
+        TransactionData first = new TransactionData(1, "Food", 12.5,
+                Timestamp.valueOf("2026-09-28 12:30:00"));
+        TransactionData second = new TransactionData(2, "Transport", 8.0,
+                Timestamp.valueOf("2026-09-27 08:15:00"));
+        assertEquals(1, first.id(), "first transaction id");
+        assertEquals(2, second.id(), "second transaction id");
+        assertEquals("Food", first.category(), "first category");
+        assertEquals("Transport", second.category(), "second category");
+        if (first.transactionDate().equals(second.transactionDate())) {
+            throw new AssertionError("transaction timestamps should remain distinct");
+        }
     }
 
     private static void assertNull(Object actual, String message) {
