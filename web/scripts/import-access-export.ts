@@ -1,4 +1,8 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+
+dotenv.config({ path: ".env.local" });
+dotenv.config();
+
 import { readFileSync } from "node:fs";
 import { eq } from "drizzle-orm";
 import { Pool } from "pg";

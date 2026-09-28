@@ -1,4 +1,8 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+
+// Next.js loads .env.local automatically; standalone scripts must do it themselves.
+dotenv.config({ path: ".env.local" });
+dotenv.config();
 
 import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
