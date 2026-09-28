@@ -8,6 +8,7 @@ legacy-java/test-out/
 *.ldb
 *.laccdb
 *.iml
+.superpowers/
 
 # Web app
 web/node_modules/
