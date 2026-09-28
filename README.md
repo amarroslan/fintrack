@@ -27,10 +27,12 @@ The web app provides login/registration, spending/budget/remaining/status summar
 
 ### Deploy to Vercel
 
-1. Import the repository into Vercel with **Root Directory = `web`**.
-2. Install a PostgreSQL provider (e.g. Neon) via the Vercel Marketplace; Vercel injects `DATABASE_URL`.
-3. Set `AUTH_SECRET` in Vercel environment variables.
-4. Run the migration command (`npm run db:migrate`) against the production database once.
+1. Push this branch / repo to GitHub (already at `github.com/amarroslan/fintrack`).
+2. In Vercel, import the repository and set **Root Directory = `web`**.
+3. Add a PostgreSQL database through the Vercel Marketplace (Neon is a good fit); Vercel injects `DATABASE_URL` into the deployment.
+4. Set `AUTH_SECRET` (e.g. `openssl rand -hex 32`) in Vercel's Environment Variables for Production, Preview, and Development.
+5. Run migrations once against the production database: locally set `DATABASE_URL` to the production URL and run `npm run db:migrate` from `web/`.
+6. Deploy. `npm run build` is the build command; no other configuration is needed (`web/vercel.json` pins it).
 
 ### Import legacy Access data (optional)
 
