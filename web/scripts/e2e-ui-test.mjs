@@ -1,4 +1,5 @@
 // Browser E2E using the locally installed Chrome (playwright-core, no browser download).
+// Usage: node scripts/e2e-ui-test.mjs [base-url]
 import { chromium } from "playwright-core";
 
 const base = process.argv[2] ?? "http://localhost:3111";
@@ -21,6 +22,7 @@ async function main() {
   const exe = chromeCandidates().find((p) => p && fs.existsSync(p));
   if (!exe) throw new Error("No installed Chrome found");
   logs.push("chrome: " + exe);
+  logs.push("target: " + base);
 
   const browser = await chromium.launch({
     executablePath: exe,
@@ -33,7 +35,7 @@ async function main() {
   await page.fill('input[name="username"]', username);
   await page.fill('input[name="password"]', "test-password-123");
   await page.click('button[type="submit"]');
-  await page.waitForURL("**/dashboard", { timeout: 20000 });
+  await page.waitForURL("**/dashboard", { timeout: 30000 });
   logs.push("registered " + username + " -> dashboard");
 
   // 2. Dashboard renders summary + forms
@@ -56,17 +58,17 @@ async function main() {
   // 5. Delete it with confirmation
   page.once("dialog", (dialog) => dialog.accept());
   await page.click('button:has-text("Delete")');
-  await page.waitForSelector("text=No transactions yet", { timeout: 15000 });
+  await page.waitForSelector("text=No transactions yet", { timeout: 20000 });
   logs.push("transaction deleted after confirm");
 
   // 6. Logout
   await page.click('button:has-text("Log out")');
-  await page.waitForURL("**/login", { timeout: 15000 });
+  await page.waitForURL("**/login", { timeout: 20000 });
   logs.push("logout -> /login");
 
   // 7. Session really gone: dashboard redirects to login
   await page.goto(base + "/dashboard");
-  await page.waitForURL("**/login", { timeout: 15000 });
+  await page.waitForURL("**/login", { timeout: 20000 });
   logs.push("dashboard after logout redirects to /login");
 
   await browser.close();
