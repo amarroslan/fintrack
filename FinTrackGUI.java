@@ -140,7 +140,7 @@ public class FinTrackGUI {
         remainingValue = new JLabel("—");
         budgetStatusValue = new JLabel("No budget set");
 
-        cards.add(createSummaryCard("Spent this period", totalSpentValue, PRIMARY));
+        cards.add(createSummaryCard(FinTrackUiSupport.totalSpentLabel(), totalSpentValue, PRIMARY));
         cards.add(createSummaryCard("Monthly budget", budgetValue, new Color(55, 124, 142)));
         cards.add(createSummaryCard("Remaining", remainingValue, SUCCESS));
         cards.add(createSummaryCard("Budget status", budgetStatusValue, WARNING));

@@ -8,7 +8,8 @@ public class FinTrackUiSupportTest {
         testDerivesBudgetStatus();
         testPreservesTransactionData();
         testKeepsTransactionRowsDistinct();
-        System.out.println("FinTrackUiSupportTest: 6 tests passed");
+        testDashboardLabels();
+        System.out.println("FinTrackUiSupportTest: 7 tests passed");
     }
 
     private static void testParsesPositiveAmount() {
@@ -54,6 +55,10 @@ public class FinTrackUiSupportTest {
         if (first.transactionDate().equals(second.transactionDate())) {
             throw new AssertionError("transaction timestamps should remain distinct");
         }
+    }
+
+    private static void testDashboardLabels() {
+        assertEquals("Total spent", FinTrackUiSupport.totalSpentLabel(), "total spent label");
     }
 
     private static void assertNull(Object actual, String message) {

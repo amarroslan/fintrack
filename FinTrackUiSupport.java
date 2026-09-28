@@ -26,6 +26,10 @@ public final class FinTrackUiSupport {
         return String.format(Locale.US, "RM %,.2f", amount);
     }
 
+    public static String totalSpentLabel() {
+        return "Total spent";
+    }
+
     public static String budgetStatus(double budget, double spent) {
         if (!Double.isFinite(budget) || budget <= 0) {
             return "No budget set";
