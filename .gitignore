@@ -1,0 +1,8 @@
+.idea/
+out/
+*.class
+*.accdb
+*.ldb
+*.laccdb
+*.iml
+.superpowers/
